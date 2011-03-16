@@ -3,12 +3,19 @@
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
 
-	<publishDate format="dd MMM yyyy"/>
-	<version/>
+	<version position="none"/>
+	<publishDate position="none"/>
+
+	<bannerLeft>
+		<name>Habr</name>
+		<href>http://habrahabr.ru/</href>
+		<src>images/habr.png</src>
+	</bannerLeft>
 
 	<body>
-		<menu name="Статьи">
-			<item name="Статья" href="article.html"/>
-		</menu>
+		<links>
+			<item name="Статьи" href="index.html"/>
+			<item name="Примеры" href="sample0.html"/>
+		</links>
 	</body>
 </project>
