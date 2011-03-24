@@ -1,17 +1,17 @@
  ----
- Inversion of Control
+ Инверсия управления
  ----
- Martin Fowler
+ Мартин Фоулер
  ----
  2005-06-26
 
-Inversion of Control
+Инверсия управления
 
-  Inversion of Control is a common phenomenon that you come across when extending frameworks. Indeed it's often seen as a
-  defining characteristic of a framework.
+  Инверсия управления является распостраненным явлением, с которым вы столкнетесь при использовании фреймворков. И действительно,
+  она часто рассматривается как определяющая характеристика фреймворка.
 
-  Let's consider a simple example. Imagine I'm writing a program to get some information from a user and I'm using a command line
-  enquiry. I might do it something like this
+  Давайте рассмотрим простой пример. Представьте себе что я пишу программу, которая получает некоторую информацию от пользователя
+  с помощью командной строки. Я мог бы сделать это как-то так:
 
 +----+
   #ruby
@@ -23,10 +23,10 @@ Inversion of Control
   process_quest(quest)
 +----+
 
-  In this interaction, my code is in control: it decides when to ask questions, when to read responses, and when to process those
-  results.
+  В этой ситуации мой код управляет исполнением: он решает когда задавать вопросы, когда считывать ответы, а когда обрабатывать
+  результаты.
 
-  However if I were were to use a windowing system to do something like this, I would do it by configuring a window.
+  Однако, если бы я использовал оконную систему для чего-то похожего, я написал бы что-то, что настраивает окно:
 
 +----+
   require 'tk'
@@ -42,27 +42,27 @@ Inversion of Control
   Tk.mainloop()
 +----+
 
-  There's a big difference now in the flow of control between these programs - in particular the control of when the
-  <<<process_name>>> and <<<process_quest>>> methods are called. In the command line form I control when these methods are called,
-  but in the window example I don't. Instead I hand control over to the windowing system (with the <<<Tk.mainloop>>> command). It
-  then decides when to call my methods, based on the bindings I made when creating the form. The control is inverted - it calls
-  me rather me calling the framework. This phenomenon is Inversion of Control (also known as the Hollywood Principle -
-  "Don't call us, we'll call you").
+  Теперь в потоке управления между этими двумя программами большая разница - в частности в управлении временем когда вызываются
+  методы <<<process_name>>> и <<<process_quest>>>. В примере с коммандной строкой я контролирую когда эти методы вызываются, но в
+  примере с оконным приложением нет. Вместо этого я передаю контроль оконной системе (команда <<<Tk.mainloop>>>). Далее она решает
+  когда вызвать мои методы, основываясь на связях, которые я настроил при создании формы. Управление инвертировано - управляют
+  мной, а не я управляю фреймворком. Это явление и называется инверсией управления (также известно как Принцип Голливуда -
+  "Не звони нам, мы сами позвоним тебе").
 
-  <One important characteristic of a framework is that the methods defined by the user to tailor the framework will often be
-  called from within the framework itself, rather than from the user's application code. The framework often plays the role of
-  the main program in coordinating and sequencing application activity. This inversion of control gives frameworks the power to
-  serve as extensible skeletons. The methods supplied by the user tailor the generic algorithms defined in the framework for a
-  particular application.>
-  <-- Ralph Johnson and Brian Foote>
+  <Одной важной характеристикой фреймворка является то, что методы, определенные пользователем для адаптации фреймворка под свои
+  нужды, будут чаще всего вызываться внутри самого же фреймворка, а не из кода приложения пользователя. Фреймворк часто играет
+  роль главной программы в координации и последовательности активности приложения. Такая инверсия управления дает фреймворку
+  возможность служить расширяемым скелетом приложения. Методы, предоставляемые пользователем, адаптируют общие алгоритмы,
+  определенные фреймворком, под определенное приложение.>
+  <-- Ralph Johnson и Brian Foote>
 
-  Inversion of Control is a key part of what makes a framework different to a library. A library is essentially a set of
-  functions that you can call, these days usually organized into classes. Each call does some work and returns control to the
-  client.
+  Инверсия управления является ключевой частью того, что различает фреймворк и библиотеку. Библиотека это по существу набор
+  функций, которые вы можете вызывать, в наши дни они организованы в классы. Каждый вызов выполняет некоторую работу и возвращает
+  управление обратно клиенту.
 
-  A framework embodies some abstract design, with more behavior built in. In order to use it you need to insert your behavior
-  into various places in the framework either by subclassing or by plugging in your own classes. The framework's code then calls
-  your code at these points.
+  Фреймворк воплощает в себе некоторый абстрактный дизайн со встроенным поведением. Для того, чтобы использовать его, вы должны
+  добавить свой код в различных местах фреймворка, либо через наследование, либо подключив свой собственный класс. Код
+  фреймворка впоследствие будет вызывать ваш код.
 
   There are various ways you can plug your code in to be called. In the ruby example above, we invoke a bind method on the text
   entry field that passes an event name and a {{{http://martinfowler.com/bliki/Closure.html}Closure}} as an argument. Whenever
