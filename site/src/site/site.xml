@@ -15,7 +15,24 @@
 	<body>
 		<links>
 			<item name="Статьи" href="index.html"/>
-			<item name="Примеры" href="sample0.html"/>
+			<item name="Переводы" href="ioc.html"/>
+			<item name="Непереведенные" href="injection.html"/>
 		</links>
+		<menu name="Статьи">
+			<item name="Создание сайта средствами мавена" href="index.html"/>
+			<item name="Примеры" href="sample0.html">
+				<item name="Пример0" href="sample0.html"/>
+				<item name="Пример1" href="sample1.html"/>
+				<item name="Пример2" href="sample2.html"/>
+				<item name="Пример3" href="sample3.html"/>
+			</item>
+		</menu>
+		<menu name="Переводы">
+			<item name="Инверсия управления" href="ioc.html"/>
+		</menu>
+		<menu name="Непереведенные">
+			<item name="Внедрение зависимостей" href="injection.html"/>
+			<item name="Лучшие способы ускорить сайт" href="performance.html"/>
+		</menu>
 	</body>
 </project>

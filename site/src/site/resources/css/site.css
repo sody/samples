@@ -3,16 +3,16 @@ body, html {
 }
 
 body {
+	width: 90%;
+	margin: auto;
 	font: .75em Verdana, sans-serif; /*12px is font-size for main content. Base font size*/
 	color: #000;
 	background: #fff;
 }
 
-a {
-	color: #6da3bd;
-}
-
-a:link {
+a,
+a:link,
+a:visited {
 	color: #6da3bd;
 }
 
@@ -56,34 +56,45 @@ h6 {
 	font-size: 100%;
 }
 
-.section {
-	font: 1.083em/1.54em Verdana, sans-serif; /*13px*/
-}
-
 pre {
 	font-size: 12px;
 	padding: 0.5em;
 	background: #f8f8f8;
-	display: block;
+	display: inline-block;
 }
 
-#breadcrumbs {
-	border: none;
-	background: transparent;
-	line-height: 1.2em;
+menu {
+	list-style: none none inside;
+	padding-left: 15px;
+	margin: 0;
+}
+
+article {
+	font: 1.083em/1.54em Verdana, sans-serif; /*13px*/
+}
+
+.header {
+	margin-bottom: 20px;
+}
+
+.links > li {
+	display: inline;
 	font-size: 250%;
 	text-transform: lowercase;
 }
 
-#breadcrumbs a {
+.links a {
 	text-decoration: underline;
 }
 
-#leftColumn {
-	border: none;
+.breadcrumbs > li {
+	display: inline;
 }
 
-.composite {
-	width: 90%;
-	margin: auto;
+.left {
+	border: 1px dotted #6495ed;
+	padding: 10px;
+	margin: 20px;
+	border-radius: 5px;
+	float: left;
 }
