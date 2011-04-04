@@ -1,32 +1,20 @@
  ----
- Оглавление
+ Contents
  ----
  sody
  ----
  2011-03-15
 
-Оглавление
+Contents
 
-  * {{{./site.html}Статьи}}
+  * {{{./site.html}Articles}}
 
-  ** {{{./site.html}Создание сайта средствами мавена}}
+    * {{{./site.html}Site creating using maven}}. In process.
 
-  * {{{./ioc.html}Переводы}}
+  * {{{./ioc.html}Translates}}
 
-  ** {{{./ioc.html}Инверсия управления}}
+    * {{{./ioc.html}Inversion of Control}}
 
-  * Непереведенные
+    * {{{./injection.html}Inversion of Control Containers and the Dependency Injection pattern}}
 
-  ** {{{./injection.html}Внедрение зависимостей}}
-
-  ** {{{./performance.html}Лучшие способы ускорить сайт}}
-
-  ** {{{./sample0.html}Примеры}}
-
-  *** {{{./sample0.html}Пример0}}
-
-  *** {{{./sample1.html}Пример1}}
-
-  *** {{{./sample2.html}Пример2}}
-
-  *** {{{./sample3.html}Пример3}}
+    * {{{./performance.html}Best Practices for Speeding Up Your Web Site}}

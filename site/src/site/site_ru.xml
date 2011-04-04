@@ -14,16 +14,16 @@
 
 	<body>
 		<links>
-			<item name="Articles" href="site.html"/>
-			<item name="Translates" href="ioc.html"/>
+			<item name="Статьи" href="site.html"/>
+			<item name="Переводы" href="ioc.html"/>
 		</links>
-		<menu name="Articles">
-			<item name="Site creation using maven" href="site.html"/>
+		<menu name="Статьи">
+			<item name="Создание сайта средствами мавена" href="site.html"/>
 		</menu>
-		<menu name="Translates">
-			<item name="Inversion of Control" href="ioc.html"/>
-			<item name="Dependency Injection pattern" href="injection.html"/>
-			<item name="Speeding Up Your Web Site" href="performance.html"/>
+		<menu name="Переводы">
+			<item name="Инверсия управления" href="ioc.html"/>
+			<item name="Внедрение зависимостей" href="injection.html"/>
+			<item name="Лучшие способы ускорить сайт" href="performance.html"/>
 		</menu>
 	</body>
 </project>
