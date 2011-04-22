@@ -3,4 +3,6 @@
 .svn
 .idea
 *.iml
+*.ipr
+*.iws
 target
