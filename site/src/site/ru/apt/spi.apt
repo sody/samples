@@ -6,3 +6,70 @@
  2011-04-29
 
 Использование SPI механизма
+
+  Service Provider Interface(SPI) представляет собой программный механизм для поддержки сменных компонентов.
+
+  Например, у нас есть сервис(интерфейс), который ищет музыку на компе и выводит все найденное на экран.
+
++----+
+public class MusicFinder {
+  public static List<String> getMusic() {
+    //some code
+  }
+}
+
+public class ReportRenderer {
+  public void generateReport() {
+    final List<String> music = MusicFinder.getMusic();
+    for (String composition : music) {
+      System.out.println(composition);
+    }
+  }
+
+  public static void main(final String[] args) {
+    final ReportRenderer renderer = new ReportRenderer();
+    renderer.generateReport();
+  }
+}
++----+
+
+  В некоторый момент времени мы осознали всю значимость этого сервиса для общества и решили поделиться им
+  со своими друзьями. Друзья попользовались сервисом и решили, чего то не хватает. Может выводить в отдельный
+  файл? Но тогда придется переписывать весь этот клевый код. Не придется, можно воспользоваться встроенной в
+  Java поддержкой SPI механизма.
+
+  Весь смысл в разделении логики на сервис(Service) и имплементации(Service Providers). Ссылки на имплементации
+  сохраняются в джарке-плагина в META-INF/services.
+
+  Например, создадим плагин для нашей супер-программы:
+
++----+
+public class TxtReportRenderer extends ReportRenderer {
+
+  @Override
+  public void generateReport() {
+    final List<String> music = MusicFinder.getMusic();
+    try {
+      final FileWriter writer = new FileWriter("music.txt");
+      for (String composition : music) {
+        writer.append(composition);
+        writer.append("\n");
+      }
+      writer.flush();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+}
++----+
+
+  Поместим в <<<META-INF/services/com.example.ReportRenderer>>> следующее:
+
++----+
+com.example.TxtReportRenderer
++----+
+
+  В исходной программе добавим поддержку расширяемости:
+
++----+
++----+

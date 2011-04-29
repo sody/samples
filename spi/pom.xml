@@ -13,36 +13,15 @@
 	</description>
 
 	<modules>
-		<module>spi-core</module>
 		<module>spi-api</module>
-		<module>spi-impl1</module>
-		<module>spi-impl2</module>
-		<module>spi-test1</module>
-		<module>spi-test2</module>
-		<module>spi-test3</module>
-		<module>spi-test4</module>
+		<module>spi-impl</module>
 	</modules>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>com.example</groupId>
-				<artifactId>spi-core</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.example</groupId>
 				<artifactId>spi-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.example</groupId>
-				<artifactId>spi-impl1</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.example</groupId>
-				<artifactId>spi-impl2</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

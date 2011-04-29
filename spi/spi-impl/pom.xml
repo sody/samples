@@ -11,19 +11,20 @@
 	</parent>
 
 	<groupId>com.example</groupId>
-	<artifactId>spi-api</artifactId>
+	<artifactId>spi-impl</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>SPI Test API Part</name>
+	<name>SPI Test Implementation Part</name>
 	<description>
 		This is an example application that demonstrates java SPI mechanism
 	</description>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
+			<groupId>com.example</groupId>
+			<artifactId>spi-api</artifactId>
 		</dependency>
 	</dependencies>
+
 </project>
