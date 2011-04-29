@@ -72,4 +72,21 @@ com.example.TxtReportRenderer
   В исходной программе добавим поддержку расширяемости:
 
 +----+
+public class ReportRenderer {
+  //...
+
+  public static ReportRenderer getImplementation() {
+    final Iterator<ReportRenderer> providers = ServiceLoader.load(ReportRenderer.class).iterator();
+    if (providers.hasNext()) {
+      return providers.next();
+    }
+
+    return new ReportRenderer();
+  }
+
+  public static void main(String[] args) {
+    final ReportRenderer renderer = getImplementation();
+    renderer.generateReport();
+  }
+}
 +----+
