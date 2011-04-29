@@ -19,6 +19,7 @@
 		</links>
 		<menu name="Статьи">
 			<item name="Создание сайта средствами мавена" href="site.html"/>
+			<item name="Использование SPI механизма" href="apt.html"/>
 		</menu>
 		<menu name="Переводы">
 			<item name="Инверсия управления" href="ioc.html"/>

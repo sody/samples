@@ -19,6 +19,7 @@
 		</links>
 		<menu name="Articles">
 			<item name="Site creation using maven" href="site.html"/>
+			<item name="SPI mechanism usage" href="spi.html"/>
 		</menu>
 		<menu name="Translates">
 			<item name="Inversion of Control" href="ioc.html"/>
