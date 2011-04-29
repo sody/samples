@@ -4,6 +4,8 @@ import net.sf.cglib.proxy.Enhancer;
 import org.apache.tapestry5.plastic.ClassInstantiator;
 import org.apache.tapestry5.plastic.InstructionBuilder;
 import org.apache.tapestry5.plastic.InstructionBuilderCallback;
+import org.apache.tapestry5.plastic.MethodAdvice;
+import org.apache.tapestry5.plastic.MethodInvocation;
 import org.apache.tapestry5.plastic.PlasticClass;
 import org.apache.tapestry5.plastic.PlasticClassTransformer;
 import org.apache.tapestry5.plastic.PlasticField;
@@ -67,20 +69,29 @@ public class TestProxies extends Assert {
 			public void transform(final PlasticClass plasticClass) {
 				final PlasticField builderField =
 						plasticClass.introduceField(ObjectBuilder.class, "builder").inject(builder);
-				final PlasticField delegateField =
-						plasticClass.introduceField(builder.getObjectClass(), "delegate");
+				final Class<T> type = builder.getObjectClass();
+				final PlasticField delegateField = plasticClass.introduceField(type, "delegate");
 
 				final PlasticMethod delegate =
-						plasticClass.introducePrivateMethod(builder.getObjectClass().getName(), "delegate", null, null);
+						plasticClass.introducePrivateMethod(type.getName(), "delegate", null, null);
 				delegate.changeImplementation(new InstructionBuilderCallback() {
-					public void doBuild(final InstructionBuilder instructionBuilder) {
-						instructionBuilder.loadThis().getField(builderField);
-						instructionBuilder.invoke(ObjectBuilder.class, Object.class, "build");
-						instructionBuilder.checkcast(builder.getObjectClass()).returnResult();
+					public void doBuild(final InstructionBuilder builder) {
+						builder.getField(delegateField);
+						builder.ifNull(new InstructionBuilderCallback() {
+							public void doBuild(final InstructionBuilder builder) {
+								builder.loadThis().getField(builderField);
+								builder.invoke(ObjectBuilder.class, Object.class, "build");
+								builder.checkcast(type).returnResult();
+							}
+						}, new InstructionBuilderCallback() {
+							public void doBuild(final InstructionBuilder builder) {
+								builder.checkcast(type).returnResult();
+							}
+						});
 					}
 				});
 
-				for (Method method : builder.getObjectClass().getMethods()) {
+				for (Method method : type.getMethods()) {
 					plasticClass.introduceMethod(method).delegateTo(delegate);
 				}
 

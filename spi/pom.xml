@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+		 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example</groupId>
+	<artifactId>spi-example</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Proxy Example</name>
+	<description>
+		This is an example application that demonstrates java SPI mechanism
+	</description>
+
+	<modules>
+		<module>spi-core</module>
+		<module>spi-api</module>
+		<module>spi-impl1</module>
+		<module>spi-impl2</module>
+		<module>spi-test1</module>
+		<module>spi-test2</module>
+		<module>spi-test3</module>
+		<module>spi-test4</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>spi-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>spi-api</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>spi-impl1</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.example</groupId>
+				<artifactId>spi-impl2</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>5.14.10</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>
