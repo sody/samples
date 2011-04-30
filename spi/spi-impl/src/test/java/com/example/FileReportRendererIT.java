@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
  * @author Ivan Khalopik
  * @since 8.0
  */
-public class ReportRendererTest extends Assert {
+public class FileReportRendererIT extends Assert {
 
 	@Test
 	public void test() {

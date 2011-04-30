@@ -19,15 +19,24 @@ public class MusicFinder {
 }
 
 public class ReportRenderer {
+
   public void generateReport() {
-    final List<String> music = MusicFinder.getMusic();
+    final List<String> music = findMusic();
     for (String composition : music) {
       System.out.println(composition);
     }
   }
 
+  public List<String> findMusic() {
+    return MusicFinder.getMusic();
+  }
+
+  public static ReportRenderer getInstance() {
+    return new ReportRenderer();
+  }
+
   public static void main(final String[] args) {
-    final ReportRenderer renderer = new ReportRenderer();
+    final ReportRenderer renderer = ReportRenderer.getInstance();
     renderer.generateReport();
   }
 }
@@ -39,7 +48,7 @@ public class ReportRenderer {
   Java поддержкой SPI механизма.
 
   Весь смысл в разделении логики на сервис(Service) и имплементации(Service Providers). Ссылки на имплементации
-  сохраняются в джарке-плагина в META-INF/services.
+  сохраняются в джарке-плагина в <<<META-INF/services/\<qualified service class\>.>>>
 
   Например, создадим плагин для нашей супер-программы:
 
@@ -48,7 +57,7 @@ public class TxtReportRenderer extends ReportRenderer {
 
   @Override
   public void generateReport() {
-    final List<String> music = MusicFinder.getMusic();
+    final List<String> music = findMusic();
     try {
       final FileWriter writer = new FileWriter("music.txt");
       for (String composition : music) {
@@ -69,13 +78,13 @@ public class TxtReportRenderer extends ReportRenderer {
 com.example.TxtReportRenderer
 +----+
 
-  В исходной программе добавим поддержку расширяемости:
+  Сделаем исходную программу расширяемой:
 
 +----+
 public class ReportRenderer {
   //...
 
-  public static ReportRenderer getImplementation() {
+  public static ReportRenderer getInstance() {
     final Iterator<ReportRenderer> providers = ServiceLoader.load(ReportRenderer.class).iterator();
     if (providers.hasNext()) {
       return providers.next();
@@ -84,9 +93,84 @@ public class ReportRenderer {
     return new ReportRenderer();
   }
 
-  public static void main(String[] args) {
-    final ReportRenderer renderer = getImplementation();
-    renderer.generateReport();
+  //...
+}
++----+
+
+  При запуске приложение как и прежде будет выводить всю найденную музыку на экран. Но если мы поместим
+  только что созданную джарку расширения в classpath, то мы получим в результате файлик <<<music.txt>>>.
+
+  Теперь пришло время поиграться с <<<MusicFinder>>>-ом. Сделаем его тоже расширяемым. Для этого поменяем
+  класс на интерфейс:
+
++----+
+public interface MusicFinder {
+
+  List<String> getMusic();
+}
++----+
+
+  Добавим в основном модуле реализацию:
+
++----+
+public class DummyMusicFinder implements MusicFinder {
+  public List<String> getMusic() {
+    return Collections.singletonList("From DummyMusicFinder...");
   }
 }
 +----+
+
+  Поддержка расширений в <<<ReportRenderer>>>:
+
++----+
+public class ReportRenderer {
+  //...
+
+  public List<String> findMusic() {
+    final List<String> music = new ArrayList<String>();
+    for (final MusicFinder finder : ServiceLoader.load(MusicFinder.class)) {
+      music.addAll(finder.getMusic());
+    }
+    return music;
+  }
+
+  //...
+}
++----+
+
+  Как и в случае с <<<ReportRenderer>>> добавим текстовый файл <<<META-INF/services/com.example.MusicFinder>>>,
+  содержащий:
+
++----+
+com.example.DummyMusicFinder
++----+
+
+  Опять же результат выполнения первой программы не поменялся.
+  Теперь расширение. Сдесь сделаем две реализации <<<MusicFinder>>>-а:
+
++----+
+public class ExtendedMusicFinder implements MusicFinder {
+  public List<String> getMusic() {
+    return Collections.singletonList("From ExtendedMusicFinder...");
+  }
+}
+
+public class MyMusicFinder implements MusicFinder {
+  public List<String> getMusic() {
+    return Collections.singletonList("From MyMusicFinder...");
+  }
+}
++----+
+
+  <<<META-INF/service/com.example.MusicFinder>>>:
+
++----+
+com.example.MyMusicFinder
+com.example.ExtendedMusicFinder
++----+
+
+ Теперь с расширением в classpath, программа выдаст список:
+
+----
+
+----

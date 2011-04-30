@@ -1,9 +1,8 @@
-package com.example;
+package com.example.utils;
 
 import sun.misc.Service;
 
-import java.util.Iterator;
-import java.util.ServiceLoader;
+import java.util.*;
 
 /**
  * @author Ivan Khalopik
@@ -22,14 +21,14 @@ public class SPIHelper {
 		return null;
 	}
 
-	public static <T> T obtainImplementation(final Class<T> serviceClass) {
+	public static <T> List<T> resolveImplementations(final Class<T> serviceClass) {
 		assert serviceClass != null;
 
-		final Iterator providers = Service.providers(serviceClass);
-		if (providers.hasNext()) {
-			return serviceClass.cast(providers.next());
+		final ArrayList<T> services = new ArrayList<T>();
+		for (final T service : ServiceLoader.load(serviceClass)) {
+			services.add(service);
 		}
 
-		return null;
+		return services;
 	}
 }

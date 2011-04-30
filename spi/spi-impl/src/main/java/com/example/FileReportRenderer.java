@@ -8,11 +8,11 @@ import java.util.List;
  * @author Ivan Khalopik
  * @since 8.0
  */
-public class TxtReportRenderer extends ReportRenderer {
+public class FileReportRenderer extends ReportRenderer {
 
 	@Override
 	public void generateReport() {
-		final List<String> music = MusicFinder.getMusic();
+		final List<String> music = findMusic();
 		try {
 			final FileWriter writer = new FileWriter("music.txt");
 			for (String composition : music) {
