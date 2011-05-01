@@ -5,14 +5,74 @@
  ----
  2011-04-29
 
-Использование SPI механизма
+Использование SPI механизма для создания расширений
 
-  Service Provider Interface(SPI) представляет собой программный механизм для поддержки сменных компонентов.
+  Архитектура большинства Java(и не только) приложений сегодня предусматривает возможность расширения
+  функционала посредством различого рода магических воздействий на код.
+  В последнее время это также стало возможно, если использовать какой-нибудь модный фреймворк или IoC-контейнер.
+  Но что делать если приложение долгоживущее и слишком сложное для того, чтобы переводить его на использование
+  какого либо фреймворка?
 
-  Например, у нас есть сервис(интерфейс), который ищет музыку на компе и выводит все найденное на экран.
+  В последнем приложении, с которым я работал, был реализован на тот момент
+  неизвестный мне велосипед(SPI механизм), который искал в джарках текстовые файлы вида
+  <<<META-INF/services/\<qualified interface name\>>>>
+  и брал оттуда название нужного класса, реализующего этот интерфейс, далее этот класс использовался как расширение.
+  Поискав в интернете узнал, что
+  {{{http://en.wikipedia.org/wiki/Service_provider_interface}Service Provider Interface(SPI)}}
+  представляет собой программный механизм для поддержки сменных компонентов и что этот механизм уже довольно давно
+  используется в {{{http://en.wikipedia.org/wiki/Java_Runtime_Environment}Java Runtime Environment(JRE)}},
+  например в {{{http://en.wikipedia.org/wiki/Java_Database_Connectivity}Java Database Connectivity(JDBC)}}:
+
++----+
+ps = Service.providers(java.sql.Driver.class);
+try {
+  while (ps.hasNext()) {
+    ps.next();
+  }
+} catch (Throwable t) {
+  // Do nothing
+}
++----+
+
+  Благодаря этому коду приложения больше не нуждаются в конструкции <<<Class.forName(\<driver class\>)>>>
+  (хотя и с ней будут работать), JDBC драйверы будут подгружены автоматически при первом обращении к методам
+  класса <<<DriverManager>>>.
+
+  SPI механизм также используется в
+  {{{http://en.wikipedia.org/wiki/Java_Cryptography_Extension}Java Cryptography Extension(JCE)}},
+  {{{http://en.wikipedia.org/wiki/Java_Naming_and_Directory_Interface}Java Naming and Directory Service(JNDI)}},
+  {{{http://en.wikipedia.org/wiki/Java_API_for_XML_Processing}Java API for XML Processing(JAXP)}},
+  {{{http://en.wikipedia.org/wiki/Java_Business_Integration}Java Business Integration(JBI)}},
+  Java Sound, Java Image I/O.
+
+Как это работает?
+
+  Весь смысл в разделении логики на сервис(Service) и провайдеры(Service Providers). Ссылки на провайдеры
+  сохраняются в джарках расширений в текстовом файле(UTF-8) <<<META-INF/services/\<qualified service class\>>>>,
+  в каждой строке полное имя класса провайдера. Пустые строки и комментарии(начинающиеся с символа #) игнорируются.
+  Ограничения на провайдеры: они должны реализовывать интерфейс либо наследоваться от класса сервиса и иметь
+  конструктор по умолчанию(zero-argument public constructor).
+
+  Основное приложение для получения списка провайдеров может воспользоваться входящей в состав Java SE 6 API
+  утилитой java.util.ServiceLoader, которая работает по следующему принципу:
+
+[images/service_loader.jpg]
+
+  Пользовательский код запрашивает загрузчик конфигурации для определенного сервиса, загрузчик по мере надобности
+  загружает из конфигурации провайдеры и сохраняет их в кеш. Также есть возможность очистить кеш и заново
+  загрузить конфигурацию.
+
+  В более ранних версиях Java SE есть аналогичная утилита sun.misc.Service, работает по тому же принципу, но
+  является частью проприетарного ПО Sun(Oracle) и может быть удалена в следующих релизах Java SE.
+
+Пример использования
+
+  Например, у нас есть программа, которая ищет музыку на компе и выводит отсортированный по имени результат
+  на экран.
 
 +----+
 public class MusicFinder {
+
   public static List<String> getMusic() {
     //some code
   }
@@ -28,7 +88,9 @@ public class ReportRenderer {
   }
 
   public List<String> findMusic() {
-    return MusicFinder.getMusic();
+    final List<String> music = MusicFinder.getMusic();
+    Collections.sort(music);
+    return music;
   }
 
   public static ReportRenderer getInstance() {
@@ -42,18 +104,14 @@ public class ReportRenderer {
 }
 +----+
 
-  В некоторый момент времени мы осознали всю значимость этого сервиса для общества и решили поделиться им
-  со своими друзьями. Друзья попользовались сервисом и решили, чего то не хватает. Может выводить в отдельный
-  файл? Но тогда придется переписывать весь этот клевый код. Не придется, можно воспользоваться встроенной в
-  Java поддержкой SPI механизма.
-
-  Весь смысл в разделении логики на сервис(Service) и имплементации(Service Providers). Ссылки на имплементации
-  сохраняются в джарке-плагина в <<<META-INF/services/\<qualified service class\>.>>>
+  В некоторый момент времени мы осознали всю значимость этой программы для общества и решили поделиться ей
+  со своими друзьями. Друзья попользовались сервисом и решили, что чего-то не хватает. Может выводить в отдельный
+  файл? Но тогда придется переписывать весь этот клевый код. Не придется, можно воспользоваться SPI механизмом.
 
   Например, создадим плагин для нашей супер-программы:
 
 +----+
-public class TxtReportRenderer extends ReportRenderer {
+public class FileReportRenderer extends ReportRenderer {
 
   @Override
   public void generateReport() {
@@ -74,9 +132,9 @@ public class TxtReportRenderer extends ReportRenderer {
 
   Поместим в <<<META-INF/services/com.example.ReportRenderer>>> следующее:
 
-+----+
-com.example.TxtReportRenderer
-+----+
+----
+com.example.FileReportRenderer
+----
 
   Сделаем исходную программу расширяемой:
 
@@ -98,7 +156,8 @@ public class ReportRenderer {
 +----+
 
   При запуске приложение как и прежде будет выводить всю найденную музыку на экран. Но если мы поместим
-  только что созданную джарку расширения в classpath, то мы получим в результате файлик <<<music.txt>>>.
+  только что созданную джарку расширения в classpath, то мы получим в результате файлик <<<music.txt>>>,
+  содержащий результаты поиска.
 
   Теперь пришло время поиграться с <<<MusicFinder>>>-ом. Сделаем его тоже расширяемым. Для этого поменяем
   класс на интерфейс:
@@ -131,6 +190,7 @@ public class ReportRenderer {
     for (final MusicFinder finder : ServiceLoader.load(MusicFinder.class)) {
       music.addAll(finder.getMusic());
     }
+    Collections.sort(music);
     return music;
   }
 
@@ -164,13 +224,32 @@ public class MyMusicFinder implements MusicFinder {
 
   <<<META-INF/service/com.example.MusicFinder>>>:
 
-+----+
+----
 com.example.MyMusicFinder
 com.example.ExtendedMusicFinder
-+----+
-
- Теперь с расширением в classpath, программа выдаст список:
-
 ----
 
+  Ну вот и все, программа поддерживающая расширения готова, теперь с расширением в classpath, она выдаст список:
+
 ----
+From DummyMusicFinder...
+From ExtendedMusicFinder...
+From MyMusicFinder...
+----
+
+  Исходники примера можно найти здесь.
+
+Заключение
+
+  Приведенный пример далек от совершенства и я не претендую на автора самой крутого в мире поисковика музыки.
+  Также я не призываю к фанатическому использованию этого механизма, так как не везде он применим, да и считаю
+  использование IoC-контейнера более красивым решением, но все же кое-где и кое-кому такой подход может оказаться
+  полезным. Спасибо за уделенное на прочтение время.
+
+Литература
+
+  * http://www.developer.com/java/article.php/3848881/Service-Provider-Interface-Creating-Extensible-Java-Applications.htm
+
+  * http://ru.wikipedia.org/wiki/Плагин
+
+  * http://download.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html
