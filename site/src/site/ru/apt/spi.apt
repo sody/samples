@@ -9,7 +9,8 @@
 
   Архитектура большинства Java(и не только) приложений сегодня предусматривает возможность расширения
   функционала посредством различного рода магических воздействий на код.
-  В последнее время это также стало возможно, если использовать какой-нибудь модный фреймворк или IoC-контейнер.
+  В последнее время это также стало возможно, если использовать какой-нибудь модный
+  {{{http://habrahabr.ru/blogs/complete_code/116232/}фреймворк или IoC-контейнер}}.
   Но что делать, если приложение долгоживущее и слишком сложное для того, чтобы переводить его на использование
   какого либо фреймворка?
 
@@ -248,8 +249,12 @@ From MyMusicFinder...
 
 Литература
 
-  * http://www.developer.com/java/article.php/3848881/Service-Provider-Interface-Creating-Extensible-Java-Applications.htm
+  * {{{http://ru.wikipedia.org/wiki/Плагин}Плагин}}
 
-  * http://ru.wikipedia.org/wiki/Плагин
+  * {{{http://en.wikipedia.org/wiki/Service_provider_interface}Service Provider Interface}}
 
-  * http://download.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html
+  * {{{http://download.oracle.com/javase/1.3/docs/guide/jar/jar.html#Service Provider}Service Provider}}
+
+  * {{{http://www.developer.com/java/article.php/3848881/Service-Provider-Interface-Creating-Extensible-Java-Applications.htm}Service Provider Interface: Creating Extensible Java Applications}}
+
+  * {{{http://download.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html}Service Loader}}
