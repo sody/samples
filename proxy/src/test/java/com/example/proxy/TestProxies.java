@@ -4,8 +4,6 @@ import net.sf.cglib.proxy.Enhancer;
 import org.apache.tapestry5.plastic.ClassInstantiator;
 import org.apache.tapestry5.plastic.InstructionBuilder;
 import org.apache.tapestry5.plastic.InstructionBuilderCallback;
-import org.apache.tapestry5.plastic.MethodAdvice;
-import org.apache.tapestry5.plastic.MethodInvocation;
 import org.apache.tapestry5.plastic.PlasticClass;
 import org.apache.tapestry5.plastic.PlasticClassTransformer;
 import org.apache.tapestry5.plastic.PlasticField;
@@ -23,7 +21,7 @@ import java.lang.reflect.Proxy;
  */
 public class TestProxies extends Assert {
 
-	@Test
+	@Test(enabled = false)
 	public void testPlasticProxy() {
 		System.out.println("Create proxy builder");
 		final ObjectBuilder<MockInterface> builder = new SimpleBuilder();
@@ -79,15 +77,14 @@ public class TestProxies extends Assert {
 						builder.getField(delegateField);
 						builder.ifNull(new InstructionBuilderCallback() {
 							public void doBuild(final InstructionBuilder builder) {
-								builder.loadThis().getField(builderField);
 								builder.invoke(ObjectBuilder.class, Object.class, "build");
+								builder.loadThis().putField(builderField.getPlasticClass().getClassName(),
+										builderField.getName(),
+										builderField.getTypeName());
 								builder.checkcast(type).returnResult();
 							}
-						}, new InstructionBuilderCallback() {
-							public void doBuild(final InstructionBuilder builder) {
-								builder.checkcast(type).returnResult();
-							}
-						});
+						}, null);
+						builder.checkcast(type).returnResult();
 					}
 				});
 

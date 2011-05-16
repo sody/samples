@@ -14,9 +14,11 @@
 	</description>
 
 	<modules>
+		<module>testing</module>
 		<module>site</module>
 		<module>spi</module>
 		<module>proxy</module>
+		<module>im</module>
 	</modules>
 
 	<dependencyManagement>
