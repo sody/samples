@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.example;
+package com.example.junit4;
 
+import com.example.StringUtils;
 import junit.framework.Assert;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

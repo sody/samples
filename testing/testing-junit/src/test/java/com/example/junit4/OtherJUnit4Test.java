@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.example;
+package com.example.junit4;
 
+import com.example.StringUtils;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,6 +42,9 @@ public class OtherJUnit4Test {
 
 	@Rule
 	public final ExpectedException thrown = ExpectedException.none();
+
+	@Rule
+	public final TestLogger logger = new TestLogger();
 
 	@Ignore
 	@Test

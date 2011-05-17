@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.example;
+package com.example.junit3;
 
+import com.example.StringUtils;
 import junit.framework.TestCase;
 
 import java.util.HashMap;
