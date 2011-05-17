@@ -17,11 +17,13 @@
 package com.example.junit3;
 
 import junit.extensions.RepeatedTest;
+import org.junit.Ignore;
 
 /**
  * @author Ivan Khalopik
  * @since 1.0
  */
+@Ignore
 public class StringUtilsJUnit3RepeatedTest extends RepeatedTest {
 	public StringUtilsJUnit3RepeatedTest() {
 		super(new StringUtilsJUnit3Test(), 100);

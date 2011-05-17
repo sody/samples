@@ -25,8 +25,8 @@ import java.util.logging.Logger;
  * @author Ivan Khalopik
  * @since 1.0
  */
-public class TestLogger extends TestWatchman {
-	private final Logger logger = Logger.getLogger(TestLogger.class.getName());
+public class LogWatchman extends TestWatchman {
+	private final Logger logger = Logger.getLogger(LogWatchman.class.getName());
 
 	@Override
 	public void starting(final FrameworkMethod method) {

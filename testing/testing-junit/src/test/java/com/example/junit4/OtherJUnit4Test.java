@@ -44,7 +44,7 @@ public class OtherJUnit4Test {
 	public final ExpectedException thrown = ExpectedException.none();
 
 	@Rule
-	public final TestLogger logger = new TestLogger();
+	public final LogWatchman logger = new LogWatchman();
 
 	@Ignore
 	@Test
