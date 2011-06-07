@@ -16,6 +16,11 @@ public class PrioritiesTest extends Assert {
 		firstTestExecuted = false;
 	}
 
+	@Test(dependsOnMethods = { "first" })
+	public void third() {
+		assertTrue(firstTestExecuted);
+	}
+
 	@Test(priority = 0)
 	public void first() {
 		assertFalse(firstTestExecuted);
@@ -26,4 +31,5 @@ public class PrioritiesTest extends Assert {
 	public void second() {
 		assertTrue(firstTestExecuted);
 	}
+
 }

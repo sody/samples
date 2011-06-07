@@ -27,7 +27,7 @@ public class ConcurrencyTest extends Assert {
 		data = null;
 	}
 
-	@Test(threadPoolSize = 30, invocationCount = 100, invocationTimeOut = 10000)
+	@Test(threadPoolSize = 30, invocationCount = 100, invocationTimeOut = 10000, enabled = false)
 	public void testMapOperations() throws Exception {
 		data.put("1", "111");
 		data.put("2", "111");

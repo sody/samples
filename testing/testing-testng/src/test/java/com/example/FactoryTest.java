@@ -25,9 +25,9 @@ public class FactoryTest {
 		return new Object[] { new GenericTableTest(table) };
 	}
 
-	@Parameters("table")
-	@Factory
-	public Object[] createParameterizedTest(@Optional("SOME_TABLE") String table) {
-		return new Object[] { new GenericTableTest(table) };
-	}
+//	@Parameters("table")
+//	@Factory
+//	public Object[] createParameterizedTest(@Optional("SOME_TABLE") String table) {
+//		return new Object[] { new GenericTableTest(table) };
+//	}
 }
