@@ -19,7 +19,7 @@ import java.util.Random;
 
 /**
  * @author Ivan Khalopik
- * @since 8.0
+ * @since 1.0
  */
 public class AdditionalTest extends Assert {
 	private Random generator;

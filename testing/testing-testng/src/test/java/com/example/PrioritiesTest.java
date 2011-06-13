@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 /**
  * @author Ivan Khalopik
- * @since 8.0
+ * @since 1.0
  */
 public class PrioritiesTest extends Assert {
 	private boolean firstTestExecuted;

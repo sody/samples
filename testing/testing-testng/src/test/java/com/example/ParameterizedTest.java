@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 /**
  * @author Ivan Khalopik
- * @since 8.0
+ * @since 1.0
  */
 public class ParameterizedTest extends Assert {
 	private DataSource dataSource;

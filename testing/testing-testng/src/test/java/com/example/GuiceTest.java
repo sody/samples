@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 /**
  * @author Ivan Khalopik
- * @since 8.0
+ * @since 1.0
  */
 @Guice(modules = { GuiceModule.class })
 public class GuiceTest extends Assert {

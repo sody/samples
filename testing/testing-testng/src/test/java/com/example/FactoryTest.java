@@ -7,7 +7,7 @@ import org.testng.annotations.Parameters;
 
 /**
  * @author Ivan Khalopik
- * @since 8.0
+ * @since 1.0
  */
 public class FactoryTest {
 

@@ -9,7 +9,7 @@ import com.google.inject.name.Names;
 
 /**
  * @author Ivan Khalopik
- * @since 8.0
+ * @since 1.0
  */
 public class GuiceModule extends AbstractModule {
 
