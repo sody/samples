@@ -45,6 +45,7 @@ public class Layout {
 
 	@AfterRender
 	void afterRender() {
+		// emulates slow buttons initialization by specifying timeout to init call
 		support.addScript("setTimeout(T5.Initializer[\"jquery.ui\"], %d)", 1500);
 //		support.addInitializerCall("jquery.ui", "");
 	}

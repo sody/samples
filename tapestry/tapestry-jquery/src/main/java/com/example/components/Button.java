@@ -14,10 +14,21 @@ import org.apache.tapestry5.dom.Text;
 
 /**
  * Corresponds to jquery.ui button widgets. It is responsible for correct button rendering with all needed content and
- * styles that will prevent content flashing during applying styles on client-side.
+ * styles that will prevent content flashing during applying styles on client-side. This component should enclose other
+ * HTML elements(e.g links, buttons, radios, checkboxes, etc.) that are candidates to be a client-side jquery.ui
+ * buttons. Foe example:
+ * <pre>
+ * &lt;t:button primary="ui-icon-plus"&gt;
+ *   &lt;t:eventlink event="add"&gt;Add&lt;/t:eventlink&gt;
+ * &lt;/t:button&gt;
+ * &lt;t:button&gt;&lt;t:submit/&gt;&lt;/t:button&gt;
+ * &lt;t:button secondary="ui-icon-triangle-1-s"&gt;
+ *   &lt;a href="#"&gt;Menu&lt;/a&gt;
+ * &lt;/t:button&gt;
+ * </pre>
  *
- * @tapestrydoc
  * @author Ivan Khalopik
+ * @tapestrydoc
  * @since 1.0
  */
 public class Button {
@@ -33,12 +44,21 @@ public class Button {
 			}
 	};
 
+	/**
+	 * Class name applied to button element in addition to usual button styles.
+	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL, name = "class")
 	private String className;
 
+	/**
+	 * Primary icon to be added to button.
+	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL)
 	private String primary;
 
+	/**
+	 * Secondary icon to be added to button.
+	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL)
 	private String secondary;
 
