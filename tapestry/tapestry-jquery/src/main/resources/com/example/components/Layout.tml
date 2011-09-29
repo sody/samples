@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	  xmlns:p="tapestry:parameter">
+<head>
+	<title>${title}</title>
+	<meta content="no-cache" http-equiv="pragma"/>
+	<meta content="no-store" http-equiv="cache-control"/>
+	<meta content="text/html; charset=utf-8;" http-equiv="content-type"/>
+</head>
+<body>
+
+<div class="container">
+	<div class="unit header">
+		_HEADER_
+	</div>
+
+	<div class="unit c-5">
+		<div class="column">
+			<div class="container left ui-widget">
+				_LEFT_SIDEBAR_
+			</div>
+		</div>
+
+		<div class="column s-3">
+			<div class="container center ui-widget ui-widget-content">
+				<h1>${title}</h1>
+				<t:body/>
+			</div>
+		</div>
+
+		<div class="column">
+			<div class="container right ui-widget">
+				_RIGHT_SIDEBAR_
+			</div>
+		</div>
+	</div>
+
+	<div class="unit footer">
+		_FOOTER_
+	</div>
+</div>
+
+</body>
+</html>

@@ -78,7 +78,7 @@ public class TestProxies extends Assert {
 	}
 
 	private static <T> T createPlasticProxy(final ObjectBuilder<T> builder) {
-		final PlasticManager manager = new PlasticManager();
+		final PlasticManager manager = PlasticManager.withContextClassLoader().create();
 		final ClassInstantiator proxy = manager.createProxy(builder.getObjectClass(), new PlasticClassTransformer() {
 			public void transform(final PlasticClass plasticClass) {
 				final PlasticField builderField =
@@ -88,21 +88,21 @@ public class TestProxies extends Assert {
 
 				final PlasticMethod delegate =
 						plasticClass.introducePrivateMethod(type.getName(), "delegate", null, null);
-				delegate.changeImplementation(new InstructionBuilderCallback() {
-					public void doBuild(final InstructionBuilder builder) {
-						builder.getField(delegateField);
-						builder.ifNull(new InstructionBuilderCallback() {
-							public void doBuild(final InstructionBuilder builder) {
-								builder.invoke(ObjectBuilder.class, Object.class, "build");
-								builder.loadThis().putField(builderField.getPlasticClass().getClassName(),
-										builderField.getName(),
-										builderField.getTypeName());
-								builder.checkcast(type).returnResult();
-							}
-						}, null);
-						builder.checkcast(type).returnResult();
-					}
-				});
+//				delegate.changeImplementation(new InstructionBuilderCallback() {
+//					public void doBuild(final InstructionBuilder builder) {
+//						builder.getField(delegateField);
+//						builder.ifNull(new InstructionBuilderCallback() {
+//							public void doBuild(final InstructionBuilder builder) {
+//								builder.invoke(ObjectBuilder.class, Object.class, "build");
+//								builder.loadThis().putField(builderField.getPlasticClass().getClassName(),
+//										builderField.getName(),
+//										builderField.getTypeName());
+//								builder.checkcast(type).returnResult();
+//							}
+//						}, null);
+//						builder.checkcast(type).returnResult();
+//					}
+//				});
 
 				for (Method method : type.getMethods()) {
 					plasticClass.introduceMethod(method).delegateTo(delegate);

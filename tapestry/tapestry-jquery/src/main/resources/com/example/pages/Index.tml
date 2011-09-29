@@ -1,0 +1,149 @@
+<html t:type="layout" title="Home Page"
+	  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	  xmlns:p="tapestry:parameter">
+
+<br/>
+<br/>
+
+<div class="unit c-2">
+	<div class="column">
+		<h4>Simple HTML elemets:</h4>
+		<br/>
+		<a class="button" href="#">Link</a>
+		<button class="button">Button</button>
+		<input class="button" type="submit" value="Submit"/>
+		<br/>
+		<br/>
+		<input id="check" type="checkbox" class="button"/>
+		<label for="check">Checkbox</label>
+
+		<input id="radio1" type="radio" class="button" name="radio"/>
+		<label for="radio1">Radio #1</label>
+
+		<input id="radio2" type="radio" class="button" name="radio"/>
+		<label for="radio2">Radio #2</label>
+	</div>
+
+	<div class="column">
+		<h4>Should be like this:</h4>
+		<br/>
+		<a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="#"><span class="ui-button-text">Link</span></a>
+		<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"><span class="ui-button-text">Button</span></button>
+		<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Submit"/>
+		<br/>
+		<br/>
+		<input class="ui-helper-hidden-accessible" id="x_check" type="checkbox"/>
+		<label class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" for="x_check"><span class="ui-button-text">Checkbox</span></label>
+
+		<input class="ui-helper-hidden-accessible" id="x_radio1" type="radio" name="radio"/>
+		<label class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" for="x_radio1"><span class="ui-button-text">Radio #1</span></label>
+
+		<input class="ui-helper-hidden-accessible" id="x_radio2" type="radio" name="radio"/>
+		<label class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" for="x_radio2"><span class="ui-button-text">Radio #2</span></label>
+	</div>
+</div>
+
+<br/>
+<hr/>
+<br/>
+
+<div class="unit c-2">
+	<div class="column">
+		<h4>With button wrapper:</h4>
+		<br/>
+		<t:button><a href="#">Link</a></t:button>
+		<t:button><button>Button</button></t:button>
+		<t:button><input type="submit" value="Submit"/></t:button>
+		<br/>
+		<br/>
+		<t:button><input id="t_check" type="checkbox"/><label for="t_check">Checkbox</label></t:button>
+		<t:button><input id="t_radio1" type="radio" name="radio"/><label for="t_radio1">Radio #1</label></t:button>
+		<t:button><input id="t_radio2" type="radio" name="radio"/><label for="t_radio2">Radio #2</label></t:button>
+	</div>
+
+	<div class="column">
+		<h4>Tapestry components:</h4>
+		<br/>
+		<t:button><t:eventlink event="action">Event Link</t:eventlink></t:button>
+		<t:button><t:actionlink>Action Link</t:actionlink></t:button>
+		<t:button><t:pagelink page="index">Page Link</t:pagelink></t:button>
+	</div>
+</div>
+
+<br/>
+<hr/>
+<br/>
+
+<div class="unit c-2">
+	<div class="column">
+		<h4>With icon:</h4>
+		<br/>
+		<t:button primary="ui-icon-plus"><a href="#">Link</a></t:button>
+		<t:button primary="ui-icon-plus"><button>Button</button></t:button>
+		<t:button primary="ui-icon-plus"><input type="submit" value="Submit"/></t:button>
+		<br/>
+		<br/>
+		<t:button primary="ui-icon-plus"><input id="it_check" type="checkbox"/><label for="it_check">Checkbox</label></t:button>
+		<t:button primary="ui-icon-plus"><input id="it_radio1" type="radio" name="radio"/><label for="it_radio1">Radio #1</label></t:button>
+		<t:button primary="ui-icon-plus"><input id="it_radio2" type="radio" name="radio"/><label for="it_radio2">Radio #2</label></t:button>
+	</div>
+
+	<div class="column">
+		<h4>With two icons:</h4>
+		<br/>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><a  href="#">Link</a></t:button>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><button>Button</button></t:button>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><input type="submit" value="Submit"/></t:button>
+		<br/>
+		<br/>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><input id="iit_check" type="checkbox"/><label for="iit_check">Checkbox</label></t:button>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><input id="iit_radio1" type="radio" name="radio"/><label for="iit_radio1">Radio #1</label></t:button>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><input id="iit_radio2" type="radio" name="radio"/><label for="iit_radio2">Radio #2</label></t:button>
+	</div>
+</div>
+
+<br/>
+<hr/>
+<br/>
+
+<div class="unit c-3">
+	<div class="column">
+		<h4>Only primary icon:</h4>
+		<br/>
+		<t:button primary="ui-icon-plus"><a href="#"/></t:button>
+		<t:button primary="ui-icon-plus"><button/></t:button>
+		<t:button primary="ui-icon-plus"><input type="submit" value="Submit"/></t:button>
+		<br/>
+		<br/>
+		<t:button primary="ui-icon-plus"><input id="ip_check" type="checkbox"/><label for="ip_check"/></t:button>
+		<t:button primary="ui-icon-plus"><input id="ip_radio1" type="radio" name="radio"/><label for="ip_radio1"/></t:button>
+		<t:button primary="ui-icon-plus"><input id="ip_radio2" type="radio" name="radio"/><label for="ip_radio2"/></t:button>
+	</div>
+
+	<div class="column">
+		<h4>Only secondary icon:</h4>
+		<br/>
+		<t:button secondary="ui-icon-triangle-1-s"><a href="#"/></t:button>
+		<t:button secondary="ui-icon-triangle-1-s"><button/></t:button>
+		<t:button secondary="ui-icon-triangle-1-s"><input type="submit" value="Submit"/></t:button>
+		<br/>
+		<br/>
+		<t:button secondary="ui-icon-triangle-1-s"><input id="is_check" type="checkbox"/><label for="is_check"/></t:button>
+		<t:button secondary="ui-icon-triangle-1-s"><input id="is_radio1" type="radio" name="radio"/><label for="is_radio1"/></t:button>
+		<t:button secondary="ui-icon-triangle-1-s"><input id="is_radio2" type="radio" name="radio"/><label for="is_radio2"/></t:button>
+	</div>
+
+	<div class="column">
+		<h4>Only icons:</h4>
+		<br/>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><a href="#"/></t:button>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><button/></t:button>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><input type="submit" value="Submit"/></t:button>
+		<br/>
+		<br/>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><input id="ii_check" type="checkbox"/><label for="ii_check"/></t:button>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><input id="ii_radio1" type="radio" name="radio"/><label for="ii_radio1"/></t:button>
+		<t:button primary="ui-icon-plus" secondary="ui-icon-triangle-1-s"><input id="ii_radio2" type="radio" name="radio"/><label for="ii_radio2"/></t:button>
+	</div>
+</div>
+</html>

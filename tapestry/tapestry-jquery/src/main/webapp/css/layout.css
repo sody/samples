@@ -1,0 +1,182 @@
+/*
+ * Copyright (c) 2008-2011 Ivan Khalopik.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.unit,
+.container,
+.column,
+.clearfix {
+	display: block;
+	*zoom: 1;
+	*display: inline-block;
+}
+
+.unit:after,
+.container:after,
+.column:after,
+.clearfix:after {
+	content: " ";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.column {
+	float: left;
+}
+
+.c-2 > .column,
+.c-4 > .column.s-2,
+.c-6 > .column.s-3
+.c-8 > .column.s-4
+.c-10 > .column.s-5 {
+	width: 50%;
+}
+
+.c-3 > .column,
+.c-6 > .column.s-2
+.c-9 > .column.s-3 {
+	width: 33.33%;
+}
+
+.c-3 > .column.s-2,
+.c-6 > .column.s-4,
+.c-9 > .column.s-6 {
+	width: 66.66%;
+}
+
+.c-4 > .column,
+.c-8 > .column.s-2 {
+	width: 25%;
+}
+
+.c-4 > .column.s-3,
+.c-8 > .column.s-6 {
+	width: 75%;
+}
+
+.c-5 > .column,
+.c-10 > .column.s-2 {
+	width: 20%;
+}
+
+.c-5 > .column.s-2,
+.c-10 > .column.s-4 {
+	width: 40%;
+}
+
+.c-5 > .column.s-3,
+.c-10 > .column.s-6 {
+	width: 60%;
+}
+
+.c-5 > .column.s-4,
+.c-10 > .column.s-8 {
+	width: 80%;
+}
+
+.c-6 > .column {
+	width: 16.66%;
+}
+
+.c-6 > .column.s-4 {
+	width: 73.33%;
+}
+
+.c-7 > .column {
+	width: 14.2857%
+}
+
+.c-7 > .column.s-2 {
+	width: 28.57%
+}
+
+.c-7 > .column.s-3 {
+	width: 42.85%
+}
+
+.c-7 > .column.s-4 {
+	width: 57.14%
+}
+
+.c-7 > .column.s-5 {
+	width: 71.42%
+}
+
+.c-7 > .column.s-6 {
+	width: 85.71%
+}
+
+.c-8 > .column {
+	width: 12.5%
+}
+
+.c-8 > .column.s-3 {
+	width: 37.5%
+}
+
+.c-8 > .column.s-5 {
+	width: 62.5%
+}
+
+.c-8 > .column.s-7 {
+	width: 87.5%
+}
+
+.c-9 > .column {
+	width: 11.11%
+}
+
+.c-9 > .column.s-2 {
+	width: 22.22%
+}
+
+.c-9 > .column.s-4 {
+	width: 44.44%
+}
+
+.c-9 > .column.s-5 {
+	width: 55.55%
+}
+
+.c-9 > .column.s-7 {
+	width: 77.77%
+}
+
+.c-9 > .column.s-8 {
+	width: 88.88%
+}
+
+.c-10 > .column {
+	width: 10%
+}
+
+.c-10 > .column.s-3 {
+	width: 30%
+}
+
+.c-10 > .column.s-7 {
+	width: 70%
+}
+
+.c-10 > .column.s-9 {
+	width: 90%
+}
