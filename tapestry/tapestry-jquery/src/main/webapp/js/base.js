@@ -15,8 +15,8 @@ T5.extendInitializer({
 						.attr("class");
 				// find element representing button text and get it's content
 				var label = element.find(".ui-button-text").html();
-				// '_EMPTY_' means that button doesn't have any text
-				var text = label && label != "_EMPTY_";
+				// check if element should have text
+				var text = !element.hasClass("ui-button-icon-only") && !element.hasClass("ui-button-icons-only");
 				// if element is label we should create button from input it references for
 				if (element.is("label")) {
 					element = $("#" + element.attr("for"));

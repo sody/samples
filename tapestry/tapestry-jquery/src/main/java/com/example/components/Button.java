@@ -45,12 +45,6 @@ public class Button {
 	};
 
 	/**
-	 * Class name applied to button element in addition to usual button styles.
-	 */
-	@Parameter(defaultPrefix = BindingConstants.LITERAL, name = "class")
-	private String className;
-
-	/**
 	 * Primary icon to be added to button.
 	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL)
@@ -61,6 +55,13 @@ public class Button {
 	 */
 	@Parameter(defaultPrefix = BindingConstants.LITERAL)
 	private String secondary;
+
+	/**
+	 * Option that defines whether to show any text. When set to {@code false} displays no text, otherwise it'll be
+	 * ignored.
+	 */
+	@Parameter(defaultPrefix = BindingConstants.LITERAL, value = "true")
+	private boolean text;
 
 	private final MarkupWriterListener listener = new MarkupWriterAdapter() {
 		@Override
@@ -124,10 +125,6 @@ public class Button {
 	 * @param element element to add styles for, not {@code null}
 	 */
 	private void addButtonStyle(final Element element) {
-		// add specified class if bounded
-		if (className != null) {
-			element.addClassName(className);
-		}
 		// add usual button styles
 		element.addClassName(
 				CSSConstants.BUTTON,
@@ -146,7 +143,7 @@ public class Button {
 		// get label element
 		Element label = getText(button);
 		// determine button type according to hasText, hasPrimaryIcon, hasSecondaryIcon options
-		final String buttonType = BUTTON_TYPES[label != null ? 1 : 0][primary != null ? 1 : 0][secondary != null ? 1 : 0];
+		final String buttonType = BUTTON_TYPES[text && label != null ? 1 : 0][primary != null ? 1 : 0][secondary != null ? 1 : 0];
 		// add button type to class attribute
 		button.addClassName(buttonType);
 		// if label is not found, create empty placeholder
