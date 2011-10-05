@@ -17,7 +17,13 @@
 	<div class="unit c-5">
 		<div class="column">
 			<div class="container left ui-widget">
-				_LEFT_SIDEBAR_
+				<div class="menu ui-widget">
+					<h4 class="ui-widget-header ui-corner-top">${message:label.menu}</h4>
+					<ul class="ui-widget-content ui-corner-bottom">
+						<li><t:pagelink page="index">${message:page.index.title}</t:pagelink></li>
+						<li><t:pagelink page="button">${message:page.button.title}</t:pagelink></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 

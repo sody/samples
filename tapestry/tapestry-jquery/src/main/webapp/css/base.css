@@ -19,6 +19,10 @@ html {
 	background: #e6d29d;
 }
 
+ul {
+	list-style: none;
+}
+
 /* Layout */
 div.header {
 	padding: 10px 20px;
@@ -44,4 +48,11 @@ div.center {
 	border-radius: 20px;
 	margin: 10px;
 	padding: 20px;
+}
+
+.menu .ui-widget-header {
+	padding: 5px;
+}
+.menu .ui-widget-content {
+	padding: 10px;
 }
