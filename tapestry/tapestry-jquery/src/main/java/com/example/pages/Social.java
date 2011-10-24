@@ -33,12 +33,15 @@ public class Social {
 	private OAuth1ServiceProvider<Twitter> twitterService;
 
 	@Persist
-	@Property
 	private Map<String, String> socialProfile;
 
 	@Persist
 	@Property
 	private String errorMessage;
+
+	public Map<String, String> getSocialProfile() {
+		return socialProfile;
+	}
 
 	@OnEvent(value = EventConstants.SUCCESS, component = "facebook")
 	void facebookConnected(final String accessToken) {
