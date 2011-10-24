@@ -18,31 +18,36 @@
 		</t:button>
 	</div>
 	<div class="column s-2">
+		<br/>
+
 		<t:if test="socialProfile">
 			<table>
 				<tbody>
 				<tr>
-					<th align="right">Id:</th>
+					<th align="right">${message:label.id}:</th>
 					<td width="5"/>
 					<td><a href="${socialProfile.get('link')}">${socialProfile.get('id')}</a></td>
 				</tr>
 				<tr>
-					<th align="right">Name:</th>
+					<th align="right">${message:label.name}:</th>
 					<td width="5"/>
 					<td>${socialProfile.get('name')}</td>
 				</tr>
 				<tr>
-					<th align="right">Gender:</th>
+					<th align="right">${message:label.gender}:</th>
 					<td width="5"/>
 					<td>${socialProfile.get('gender')}</td>
 				</tr>
 				<tr>
-					<th align="right">Locale:</th>
+					<th align="right">${message:label.locale}:</th>
 					<td width="5"/>
 					<td>${socialProfile.get('locale')}</td>
 				</tr>
 				</tbody>
 			</table>
+			<p:else>
+				${errorMessage}
+			</p:else>
 		</t:if>
 	</div>
 </div>
