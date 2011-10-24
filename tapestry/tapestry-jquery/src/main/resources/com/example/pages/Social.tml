@@ -1,0 +1,50 @@
+<html t:type="layout" title="message:page.index.title"
+	  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+	  xmlns:p="tapestry:parameter">
+
+<div class="unit c-3">
+	<div class="column">
+		<br/>
+
+		<t:button>
+			<t:facebookconnect t:id="facebook">FACEBOOK</t:facebookconnect>
+		</t:button>
+
+		<br/>
+		<br/>
+
+		<t:button>
+			<t:twitterconnect t:id="twitter">TWITTER</t:twitterconnect>
+		</t:button>
+	</div>
+	<div class="column s-2">
+		<t:if test="socialProfile">
+			<table>
+				<tbody>
+				<tr>
+					<th align="right">Id:</th>
+					<td width="5"/>
+					<td><a href="${socialProfile.get('link')}">${socialProfile.get('id')}</a></td>
+				</tr>
+				<tr>
+					<th align="right">Name:</th>
+					<td width="5"/>
+					<td>${socialProfile.get('name')}</td>
+				</tr>
+				<tr>
+					<th align="right">Gender:</th>
+					<td width="5"/>
+					<td>${socialProfile.get('gender')}</td>
+				</tr>
+				<tr>
+					<th align="right">Locale:</th>
+					<td width="5"/>
+					<td>${socialProfile.get('locale')}</td>
+				</tr>
+				</tbody>
+			</table>
+		</t:if>
+	</div>
+</div>
+
+</html>

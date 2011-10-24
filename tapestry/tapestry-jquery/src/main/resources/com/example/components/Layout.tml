@@ -22,6 +22,7 @@
 					<ul class="ui-widget-content ui-corner-bottom">
 						<li><t:pagelink page="index">${message:page.index.title}</t:pagelink></li>
 						<li><t:pagelink page="button">${message:page.button.title}</t:pagelink></li>
+						<li><t:pagelink page="social">${message:page.social.title}</t:pagelink></li>
 					</ul>
 				</div>
 			</div>
