@@ -2,10 +2,10 @@
 	  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
 	  xmlns:p="tapestry:parameter">
 
+<br/>
+
 <div class="unit c-3">
 	<div class="column">
-		<br/>
-
 		<t:button>
 			<t:facebookconnect t:id="facebook">FACEBOOK</t:facebookconnect>
 		</t:button>
@@ -18,8 +18,6 @@
 		</t:button>
 	</div>
 	<div class="column s-2">
-		<br/>
-
 		<t:if test="socialProfile">
 			<table>
 				<tbody>

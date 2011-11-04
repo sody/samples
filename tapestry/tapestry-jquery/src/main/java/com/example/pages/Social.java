@@ -54,10 +54,12 @@ public class Social {
 		socialProfile.put("gender", profile.getGender());
 		socialProfile.put("locale", String.valueOf(profile.getLocale()));
 		socialProfile.put("link", profile.getLink());
+
+		facebookService.getApi(accessToken).feedOperations().updateStatus("My new status");
 	}
 
 	@OnEvent(value = EventConstants.FAILURE, component = "facebook")
-	void facebookFailure(final String error, final String errorReason, final String errorDescription) {
+	void facebookFailure() {
 		socialProfile = null;
 		errorMessage = messages.format("message.connection-denied", "Facebook");
 	}
@@ -76,7 +78,7 @@ public class Social {
 	}
 
 	@OnEvent(value = EventConstants.FAILURE, component = "twitter")
-	void twitterFailure(final String denied) {
+	void twitterFailure() {
 		socialProfile = null;
 		errorMessage = messages.format("message.connection-denied", "Twitter");
 	}
