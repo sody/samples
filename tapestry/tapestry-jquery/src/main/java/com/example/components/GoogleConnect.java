@@ -1,5 +1,6 @@
 package com.example.components;
 
+import com.example.internal.google.Google;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.EventConstants;
@@ -12,7 +13,6 @@ import org.apache.tapestry5.corelib.base.AbstractComponentEventLink;
 import org.apache.tapestry5.internal.util.CaptureResultCallback;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.InjectService;
-import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.oauth2.OAuth2Parameters;
@@ -22,16 +22,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * This component represents link that connects users to their facebook accounts using OAuth2 protocol. After clicking
- * this link users will be redirected to facebook authorization page and then returned back to the page where they come
- * from. After facebook authorization this component triggers {@link EventConstants#SUCCESS} or
+ * This component represents link that connects users to their google accounts using OAuth2 protocol. After clicking
+ * this link users will be redirected to google authorization page and then returned back to the page where they come
+ * from. After google authorization this component triggers {@link EventConstants#SUCCESS} or
  * {@link EventConstants#FAILURE} events according to authorization result. Success event comes with access token
- * as event context, so developers can then use it to access facebook api.
+ * as event context, so developers can then use it to access google api.
  *
  * @author Ivan Khalopik
  * @since 1.0
  */
-public class FacebookConnect extends AbstractComponentEventLink {
+public class GoogleConnect extends AbstractComponentEventLink {
 	private static final String CONNECT_EVENT = "connect";
 	private static final String CONNECTED_EVENT = "connected";
 
@@ -47,8 +47,8 @@ public class FacebookConnect extends AbstractComponentEventLink {
 	/**
 	 * Injected spring-social OAuth2 service for facebook. It should be configured somewhere in application modules.
 	 */
-	@InjectService("facebookService")
-	private OAuth2ServiceProvider<Facebook> facebookService;
+	@InjectService("googleService")
+	private OAuth2ServiceProvider<Google> googleService;
 
 	/**
 	 * Generates OAuth2 redirectUri as event link to current component with internal {@code 'connected'} event.
@@ -75,11 +75,11 @@ public class FacebookConnect extends AbstractComponentEventLink {
 	}
 
 	/**
-	 * Event handler for internal {@code 'connect'} event. Generates correct facebook authorization URL with all needed
+	 * Event handler for internal {@code 'connect'} event. Generates correct google authorization URL with all needed
 	 * parameters.
 	 *
-	 * @return facebook authorization URL
-	 * @throws MalformedURLException for incorrect URL produced by facebook service
+	 * @return google authorization URL
+	 * @throws MalformedURLException for incorrect URL produced by google service
 	 */
 	@OnEvent(CONNECT_EVENT)
 	URL connect() throws MalformedURLException {
@@ -94,31 +94,27 @@ public class FacebookConnect extends AbstractComponentEventLink {
 	}
 
 	/**
-	 * Event handler for internal {@code 'connected'} event. Processes reply came from facebook authorization page. If
+	 * Event handler for internal {@code 'connected'} event. Processes reply came from google authorization page. If
 	 * access was granted then it tries to get OAuth2 access token and triggers {@link EventConstants#SUCCESS} event with
 	 * access token as event context. If access was denied or error occurs while getting access token then
 	 * {@link EventConstants#FAILURE} event will be triggered.
 	 *
-	 * @param code			 authorized OAuth token came from facebook
-	 * @param error			error came from facebook
-	 * @param errorReason	  error reason came from facebook
-	 * @param errorDescription error description came from facebook
+	 * @param code			 authorized OAuth token came from google
+	 * @param error			error came from google
 	 * @return result came from container for triggered events or null if was not processed.
 	 */
 	@OnEvent(CONNECTED_EVENT)
 	Object connected(
 			@RequestParameter(value = "code", allowBlank = true) final String code,
-			@RequestParameter(value = "error", allowBlank = true) final String error,
-			@RequestParameter(value = "error_reason", allowBlank = true) final String errorReason,
-			@RequestParameter(value = "error_description", allowBlank = true) final String errorDescription) {
+			@RequestParameter(value = "error", allowBlank = true) final String error) {
 
 		final CaptureResultCallback<Object> callback = new CaptureResultCallback<Object>();
 		// null code means that access was not granted
 		if (code != null) {
 			final AccessGrant accessGrant;
 			try {
-				// request for access token from facebook
-				accessGrant = facebookService.getOAuthOperations().exchangeForAccess(code, getRedirectUri(), null);
+				// request for access token from google
+				accessGrant = googleService.getOAuthOperations().exchangeForAccess(code, getRedirectUri(), null);
 				// create success even context
 				final Object[] context = {accessGrant.getAccessToken()};
 				// trigger success event
@@ -135,10 +131,9 @@ public class FacebookConnect extends AbstractComponentEventLink {
 			}
 		}
 
-		final Object[] context = {errorDescription};
+		final Object[] context = {error};
 		// handle failure event if access was denied or error occurs while requesting access token
 		final boolean handled = resources.triggerEvent(EventConstants.FAILURE, context, callback);
-
 		// if event was processed return result
 		if (handled) {
 			return callback.getResult();
@@ -154,6 +149,6 @@ public class FacebookConnect extends AbstractComponentEventLink {
 	 * @return OAuth2 authorization URL
 	 */
 	private String buildConnectURL(final OAuth2Parameters parameters) {
-		return facebookService.getOAuthOperations().buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, parameters);
+		return googleService.getOAuthOperations().buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, parameters);
 	}
 }

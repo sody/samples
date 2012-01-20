@@ -127,6 +127,7 @@ public class TwitterConnect extends AbstractComponentEventLink {
 				return null;
 			} catch (Exception e) {
 				// error occurs, so failure event will be triggered
+				e.printStackTrace();
 			}
 		}
 

@@ -1,5 +1,7 @@
 package com.example.pages;
 
+import com.example.internal.google.Google;
+import com.example.internal.google.GoogleProfile;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Persist;
@@ -32,6 +34,9 @@ public class Social {
 	@InjectService("twitterService")
 	private OAuth1ServiceProvider<Twitter> twitterService;
 
+	@InjectService("googleService")
+	private OAuth2ServiceProvider<Google> googleService;
+
 	@Persist
 	private Map<String, String> socialProfile;
 
@@ -54,8 +59,7 @@ public class Social {
 		socialProfile.put("gender", profile.getGender());
 		socialProfile.put("locale", String.valueOf(profile.getLocale()));
 		socialProfile.put("link", profile.getLink());
-
-		facebookService.getApi(accessToken).feedOperations().updateStatus("My new status");
+		socialProfile.put("image", Facebook.GRAPH_API_URL + profile.getId() + "/picture?type=large");
 	}
 
 	@OnEvent(value = EventConstants.FAILURE, component = "facebook")
@@ -75,11 +79,32 @@ public class Social {
 		socialProfile.put("gender", "");
 		socialProfile.put("locale", profile.getLanguage());
 		socialProfile.put("link", profile.getProfileUrl());
+		socialProfile.put("image", profile.getProfileImageUrl());
 	}
 
 	@OnEvent(value = EventConstants.FAILURE, component = "twitter")
 	void twitterFailure() {
 		socialProfile = null;
 		errorMessage = messages.format("message.connection-denied", "Twitter");
+	}
+
+	@OnEvent(value = EventConstants.SUCCESS, component = "google")
+	void googleConnected(final String accessToken) {
+		final GoogleProfile profile = googleService.getApi(accessToken).userOperations().getUserProfile();
+
+		errorMessage = null;
+		socialProfile = new HashMap<String, String>();
+		socialProfile.put("id", String.valueOf(profile.getId()));
+		socialProfile.put("name", profile.getName());
+		socialProfile.put("gender", "");
+		socialProfile.put("locale", String.valueOf(profile.getLocale()));
+		socialProfile.put("link", profile.getLink());
+		socialProfile.put("image", profile.getPictureUrl());
+	}
+
+	@OnEvent(value = EventConstants.FAILURE, component = "google")
+	void googleFailure(final String error, final String errorDescription) {
+		socialProfile = null;
+		errorMessage = messages.format("message.connection-denied", "Google");
 	}
 }
