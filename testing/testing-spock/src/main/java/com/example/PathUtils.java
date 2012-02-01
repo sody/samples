@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * @since 1.0
  */
 public abstract class PathUtils {
-  private static final String PATH_SEPARATOR = "/";
+  public static final String PATH_SEPARATOR = "/";
 
   private static final Pattern ANT_TEXT_PATTERN = Pattern.compile("\\?|\\*");
 
