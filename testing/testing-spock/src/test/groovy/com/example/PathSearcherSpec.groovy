@@ -61,6 +61,36 @@ class PathSearcherSpec extends Specification {
     zipResults.size() == 1
   }
 
+  def "it should search files that match at least one of the include patterns"() {
+    given:
+    def searcher = PathSearcher.create(inClasspath("test3")).include("**/*.xml", "**/child/*.*")
+    when:
+    def results = searcher.search()
+    then:
+    results.containsAll(["2.xml", "child/4.txt", "child/5.xml", "child/6.yaml"])
+    results.size() == 4
+  }
+
+  def "it should not search files that match at least one of the exclude patterns"() {
+    given:
+    def searcher = PathSearcher.create(inClasspath("test3")).exclude("**/*.xml", "**/child/*.????")
+    when:
+    def results = searcher.search()
+    then:
+    results.containsAll(["1.txt", "3.yaml", "child/4.txt"])
+    results.size() == 3
+  }
+
+  def "it should not search files that match both include and exclude patterns"() {
+    given:
+    def searcher = PathSearcher.create(inClasspath("test3")).include("**/*.xml").exclude("**/child/*")
+    when:
+    def results = searcher.search()
+    then:
+    results.containsAll(["2.xml"])
+    results.size() == 1
+  }
+
   private String inClasspath(path) {
     return ClassLoader.getSystemResource(path).toExternalForm()
   }
