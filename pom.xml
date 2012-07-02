@@ -14,7 +14,6 @@
 	</description>
 
 	<modules>
-		<module>tapestry</module>
 		<module>testing</module>
 		<module>site</module>
 		<module>spi</module>
